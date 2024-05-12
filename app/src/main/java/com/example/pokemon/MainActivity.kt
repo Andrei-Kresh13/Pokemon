@@ -5,8 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.pokemon.model.PokemonListItem
+import com.example.pokemon.network.PokemonApiService
 //import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -50,11 +51,31 @@ class MainActivity : AppCompatActivity() {
             try {
                 val pokemonList = service.getPokemonList().results
                 pokemonAdapter.submitList(pokemonList)
+                loadPokemonImages(pokemonList) // Загрузка изображений
             } catch (e: Exception) {
                 // Обработка ошибки загрузки данных
                 e.printStackTrace()
             }
         }
     }
+    fun loadPokemonImages(pokemonList: List<PokemonListItem>) {
+        for (pokemon in pokemonList) {
+            val imageUrl = getPokemonImageUrl(pokemon.url)
+            Glide.with(this)
+                .load(imageUrl)
+                .preload() // Предварительная загрузка изображений
+        }
+    }
+    private fun getPokemonImageUrl(pokemonUrl: String): String {
+        // Пример базового URL API для изображений покемонов в API PokeAPI
+        val baseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{pokemonId}.png\n"
+
+        // Извлечение номера покемона из URL
+        val pokemonId = pokemonUrl.substringAfterLast("/").dropLast(1)
+
+        // Возвращение полного URL изображения покемона
+        return "$baseUrl$pokemonId.png"
+    }
+
 }
 

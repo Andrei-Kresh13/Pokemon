@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.pokemon.model.PokemonListItem
+
 //import kotlinx.android.synthetic.main.item_pokemon.view.*
 
 class PokemonAdapter :
@@ -45,8 +47,8 @@ class PokemonAdapter :
 
     private fun getPokemonImageUrl(url: String): String {
         // Extract Pokemon ID from URL
-        val id = url.substringAfterLast("/").dropLast(1)
-        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png"
+        val id = url.substringAfterLast("https://pokeapi.co/api/v2/").dropLast(1)
+        return id
     }
 
     private class PokemonDiffCallback : DiffUtil.ItemCallback<PokemonListItem>() {

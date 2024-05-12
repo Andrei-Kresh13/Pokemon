@@ -3,11 +3,10 @@ package com.example.pokemon
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.example.pokemon.model.PokemonDetails
+import com.example.pokemon.network.PokemonApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

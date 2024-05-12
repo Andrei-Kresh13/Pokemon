@@ -1,4 +1,4 @@
-package com.example.pokemon
+package com.example.pokemon.model
 
 data class PokemonDetails(
     val name: String,
